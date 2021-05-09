@@ -17,6 +17,8 @@
         <FILE id="gpQ6ww" name="Distortion.cpp" compile="1" resource="0" file="Source/Distortion.cpp"/>
       </GROUP>
       <GROUP id="{BDBC0218-73FB-2B91-6877-D8D762B66F59}" name="Filter">
+        <FILE id="ZsvHYP" name="Ladder.cpp" compile="1" resource="0" file="Source/Ladder.cpp"/>
+        <FILE id="FHOZYE" name="Ladder.h" compile="0" resource="0" file="Source/Ladder.h"/>
         <FILE id="MQeqEx" name="Filter.cpp" compile="1" resource="0" file="Source/Filter.cpp"/>
         <FILE id="Q43N44" name="Filter.h" compile="0" resource="0" file="Source/Filter.h"/>
         <FILE id="SEhlCM" name="Biquad.cpp" compile="1" resource="0" file="Source/Biquad.cpp"/>
