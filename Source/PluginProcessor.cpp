@@ -47,7 +47,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout EffectsTestBenchAudioProcess
 	auto distAmountParam = std::make_unique<juce::AudioParameterFloat>(DISTAMOUNT_ID, "Distortion Amount", 0.0f, 1.0f, 0.5f);
 	params.push_back(std::move(distAmountParam));
 
-    auto filterCutoffParam = std::make_unique<juce::AudioParameterFloat>(FILTERCUTOFF_ID, "Filter Cutoff", 26.0f, 20500.0f, 12000.0f);
+    auto filterCutoffParam = std::make_unique<juce::AudioParameterFloat>(FILTERCUTOFF_ID, "Filter Cutoff", 26.0f, 20000.0f, 12000.0f);
     params.push_back(std::move(filterCutoffParam));
     auto filterResonanceParam = std::make_unique<juce::AudioParameterFloat>(FILTERRESONANCE_ID, "Filter Resonance", 0.1f, 1.0f, 0.2f);
     params.push_back(std::move(filterResonanceParam));
@@ -208,7 +208,7 @@ void EffectsTestBenchAudioProcessor::processBlock (juce::AudioBuffer<float>& buf
             {
                 Filter* filter = &filters.getReference(channel);
                 channelData[sample] = filter->filterSelector(channelData[sample],
-                    *parameters.getRawParameterValue(FILTERCUTOFF_ID), *parameters.getRawParameterValue(FILTERRESONANCE_ID), (float)getSampleRate(),
+                    *parameters.getRawParameterValue(FILTERCUTOFF_ID), *parameters.getRawParameterValue(FILTERRESONANCE_ID), getSampleRate(),
                     *parameters.getRawParameterValue(FILTERTYPECOMBOBOX_ID));
             }
 

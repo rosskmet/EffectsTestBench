@@ -17,7 +17,7 @@ Biquad::Biquad()
 
 	a0 = a1 = a2 = b1 = b2 = 0.0;
 	x0 = x1 = x2 = y1 = y2 = 0.0;
-	//theta = d = beta = gamma = alpha;
+
 }
 
 Biquad::~Biquad()
@@ -25,46 +25,46 @@ Biquad::~Biquad()
 
 }
 
-void Biquad::calculateBiquad(float cutoff, float q, float sampleRate, int filterType)
+void Biquad::calculateBiquad(double cutoff, double q, double sampleRate, int filterType)
 {
 	//float scale = sampleRate / 20500.0f;
 
 	switch (filterType) {
 		//2nd Order Low-Pass
 		case 1:
-				q = 0.25f + (19.5f * q);
+				q = 0.25 + (19.5 * q);
 
 				theta = (2 * M_PI * cutoff) / sampleRate;
 				d = 1.0f / q;
-				beta = 0.5f * ((1.0f - (d / 2.0f) * sin(theta)) / (1.0f + (d / 2.0f) * sin(theta)));
-				gamma = (0.5f + beta) * cos(theta);
+				beta = 0.5 * ((1.0 - (d / 2.0) * sin(theta)) / (1.0 + (d / 2.0) * sin(theta)));
+				gamma = (0.5 + beta) * cos(theta);
 
-				a0 = (0.5f + beta - gamma) / 2.0f;
-				a1 = 0.5f + beta - gamma;
+				a0 = (0.5 + beta - gamma) / 2.0;
+				a1 = 0.5 + beta - gamma;
 				a2 = a0;
-				b1 = -2.0f * gamma;
-				b2 = 2.0f * beta;
+				b1 = -2.0 * gamma;
+				b2 = 2.0 * beta;
 			break;
 		//2nd Order High-Pass
 		case 4:
-				q = 0.25f + (19.5f * q);
+				q = 0.25 + (19.5 * q);
 
 				theta = (2 * M_PI * cutoff) / sampleRate;
-				d = 1.0f / q;
-				beta = 0.5f * ((1.0f - (d / 2.0f) * sin(theta)) / (1.0f + (d / 2.0f) * sin(theta)));
-				gamma = (0.5f + beta) * cos(theta);
+				d = 1.0 / q;
+				beta = 0.5 * ((1.0 - (d / 2.0) * sin(theta)) / (1.0 + (d / 2.0) * sin(theta)));
+				gamma = (0.5 + beta) * cos(theta);
 
-				a0 = (0.5f + beta + gamma) / 2.0f;
-				a1 = -(0.5f + beta + gamma);
+				a0 = (0.5 + beta + gamma) / 2.0;
+				a1 = -(0.5 + beta + gamma);
 				a2 = a0;
-				b1 = -2.0f * gamma;
-				b2 = 2.0f * beta;
+				b1 = -2.0 * gamma;
+				b2 = 2.0 * beta;
 			break;
 		//2nd Order Band-Pass
 		case 6:
 				//qc = 1 / (q * 19000.0);
 				//qc = 1 / (q * 1.5707f);
-				qc = ((0.24 + q * 0.8) * 20500.0f) / cutoff; //Will this help???
+				qc = ((0.24 + q * 0.8) * 22050.0); //Will this help???
 				theta = (2 * M_PI * cutoff) / sampleRate;
 				alpha = theta / (2.0 * qc);
 
@@ -81,33 +81,33 @@ void Biquad::calculateBiquad(float cutoff, float q, float sampleRate, int filter
 				//	alpha = 4.71f;
 				//}
 
-				beta = 0.5f * ((1.0f - tan(alpha)) / (1.0f + tan(alpha)));
-				gamma = (0.5f + beta) * cos(theta);
-				a0 = (0.5f - beta);
-				a1 = 0.0f;
+				beta = 0.5 * ((1.0 - tan(alpha)) / (1.0 + tan(alpha)));
+				gamma = (0.5 + beta) * cos(theta);
+				a0 = (0.5 - beta);
+				a1 = 0.0;
 				a2 = -a0;
-				b1 = -2.0f * gamma;
-				b2 = 2.0f * beta;
+				b1 = -2.0 * gamma;
+				b2 = 2.0 * beta;
 			break;
 		//2nd Order Notch
 		case 8:
-				//qc = 1 / (q * 1.5707f);
-				qc = ((0.24 + q * 0.8) * 20500.0f) / cutoff;
+				////qc = 1 / (q * 1.5707f);
+				qc = ((0.24 + q * 0.8) * 22050.0) / cutoff;
 				theta = (2 * M_PI * cutoff) / sampleRate;
 				alpha = theta / (2.0 * qc);
 
-				if ((alpha >= (M_PI / 2.0f)))
+				if ((alpha >= (M_PI / 2.0)))
 				{
-					alpha = 1.57070f;
+					alpha = 1.57070;
 				}
 
-				beta = 0.5f * ((1.0f - tan(alpha)) / (1.0f + tan(alpha)));
-				gamma = (0.5f + beta) * cos(theta);
-				a0 = 0.5f + beta;
-				a1 = -2.0f * gamma;
+				beta = 0.5 * ((1.0 - tan(alpha)) / (1.0 + tan(alpha)));
+				gamma = (0.5 + beta) * cos(theta);
+				a0 = 0.5 + beta;
+				a1 = -2.0 * gamma;
 				a2 = a0;
-				b1 = -2.0f * gamma;
-				b2 = 2.0f * beta;
+				b1 = -2.0 * gamma;
+				b2 = 2.0 * beta;
 			break;
 		default:
 			break;
@@ -115,7 +115,7 @@ void Biquad::calculateBiquad(float cutoff, float q, float sampleRate, int filter
 
 }
 
-float Biquad::applyBiquad(float sample)
+float Biquad::applyBiquad(double sample)
 {
 	input = sample;
 

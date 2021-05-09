@@ -74,7 +74,7 @@ EffectsTestBenchAudioProcessorEditor::EffectsTestBenchAudioProcessorEditor (Effe
 	distAmountSlider.addListener(this);
 
 	filterCutoffSlider.setSliderStyle(juce::Slider::LinearBarVertical);
-	filterCutoffSlider.setRange(26.0f, 20500.00f, 1.0f);
+	filterCutoffSlider.setRange(26.0f, 20000.00f, 1.0f);
 	filterCutoffSlider.setSkewFactor(0.3);
 	filterCutoffSlider.setTextBoxStyle(juce::Slider::NoTextBox, false, 90, 0);
 	filterCutoffSlider.setPopupDisplayEnabled(true, false, this);
